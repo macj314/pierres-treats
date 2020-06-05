@@ -13,8 +13,14 @@ _This is a project that allows users to add and track flavors and treats in a da
 1. Clone this repository from GitHub.
 2. Open the downloaded directory in a text editor of your choice.
   (VSCode, Atom, etc.)
-3. To install the REPL dotnet script, run dotnet tool install -g dotnet-script in your terminal.
-4. Run the program with the commands dotnet restore, dotnet build, and dotnet run.
+3. Create an appsettings.json folder in the root directory. Set the 'server', 'port', 'uid', and 'pwd' to your own personal setting for your SQL service. But set the 'database' setting to jason_macie<br>
+Example: 
+{
+  "ConnectionStrings": {
+      "DefaultConnection": "Server=server;Port=port;database=jason_macie;uid=userid;pwd=password;"
+  }
+}
+4. Run the program with the commands dotnet restore, dotnet build, and dotnet run inside of the PierresTreats directory.
 
 ### Create Database 
 #### SQL Queries:

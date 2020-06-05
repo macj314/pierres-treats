@@ -19,7 +19,6 @@ else
   @foreach (var join in Model.Treats)
   {
     <p>@join.Treat.Name</p>
-    @* <p>@Html.ActionLink($"{Treat.Name}", "Details", new { id = treat.TreatId })</p> *@
   }
   </ul>
 }
