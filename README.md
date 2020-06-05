@@ -15,16 +15,19 @@ _This is a project that allows users to add and track flavors and treats in a da
   (VSCode, Atom, etc.)
 3. Create an appsettings.json folder in the root directory. Set the 'server', 'port', 'uid', and 'pwd' to your own personal setting for your SQL service. But set the 'database' setting to jason_macie<br>
 Example: 
+``` 
 {
   "ConnectionStrings": {
       "DefaultConnection": "Server=server;Port=port;database=jason_macie;uid=userid;pwd=password;"
   }
 }
+```
 4. Run the program with the commands dotnet restore, dotnet build, and dotnet run inside of the PierresTreats directory.
 
 ### Create Database 
 #### SQL Queries:
-``` CREATE SCHEMA `jason_macie` ;
+```
+CREATE SCHEMA `jason_macie` ;
 USE `jason_macie`;
 CREATE TABLE `flavors` (
   `FlavorId` int NOT NULL AUTO_INCREMENT,
@@ -53,7 +56,8 @@ CREATE TABLE `treats` (
   PRIMARY KEY (`TreatId`),
   KEY `IX_Treats_UserId` (`UserId`),
   CONSTRAINT `FK_Treats_AspNetUsers_UserId` FOREIGN KEY (`UserId`) REFERENCES `aspnetusers` (`Id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; ```
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
 
 #### Use SQL File
 Or import jason_macie.sql in the root directory of this program.
