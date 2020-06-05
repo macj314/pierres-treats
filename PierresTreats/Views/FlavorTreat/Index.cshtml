@@ -5,7 +5,7 @@
 @using PierresTreats.ViewModels;
 @model PierresTreats.ViewModels.FlavorTreatViewModel
 <h2>List of Flavors and Treats</h2>
-<h4>Flavors:</h4>
+<h3>Flavors:</h3>
 <hr>
 @if (@Model.FlavorList.Count == 0)
 {
@@ -15,8 +15,9 @@
 {
   <p>@Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId })</p>
 }
+<a href='@Url.Action("Create", "Flavor")'>Create a New Flavor</a>
 <hr>
-<h4>Treats:</h4>
+<h3>Treats:</h3>
 <hr>
 @if (@Model.TreatList.Count == 0)
 {
@@ -26,3 +27,5 @@
 {
   <p>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</p>
 }
+<a href='@Url.Action("Create", "Treat")'>Create a New Treat</a>
+<hr>
