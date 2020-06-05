@@ -15,7 +15,7 @@
 {
   <p>@Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId })</p>
 }
-<a href='@Url.Action("Create", "Flavor")'>Create a New Flavor</a>
+<a href='@Url.Action("Index", "Flavors")'><h4>Create a New Flavor</h4></a>
 <hr>
 <h3>Treats:</h3>
 <hr>
@@ -27,5 +27,5 @@
 {
   <p>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</p>
 }
-<a href='@Url.Action("Create", "Treat")'>Create a New Treat</a>
+<a href='@Url.Action("Index", "Treats")'><h4>Create a New Treat</h4></a>
 <hr>

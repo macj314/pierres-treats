@@ -20,10 +20,18 @@ namespace PierresTreats.Controllers
       _db = db;
     }
 
+    [Authorize]
     public ActionResult Index()
     {
-      List<Flavor> model = _db.Flavors.ToList();
-      return View(model);
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Index(Flavor Flavor)
+    {
+      _db.Flavors.Add(Flavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index", "FlavorTreat");
     }
   }
 }
