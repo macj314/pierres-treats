@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+}
+ @* <h2>Welcome to Treat Box!</h2>
+  <p>This is a site where you can add, edit and organize your favorite treats</p>
+  <p>Let's get sarted by creating an account</p>
+  <p>Click @Html.ActionLink("here", "Index", "Account") to begin.</p> *@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Treat Box</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="~/css/styles.css">
+  </head>
+  <body>
+    
+    <div class="splash animated bounceInDown">
+      <a href='@Url.Action("Index", "Account")'>
+        <img src='../../img/Logo.png' />
+      </a>
+    </div>
+    
+  </body>
+  <footer>
+    <p>Courtesy Tyler Bates & Jason Macie at Epicodus</p>
+  </footer>
+</html>
