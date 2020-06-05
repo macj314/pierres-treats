@@ -47,5 +47,18 @@ namespace PierresTreats.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index", "FlavorTreat");
     }
+
+    [Authorize]
+    public ActionResult Details(int id)
+    {
+      var thisTreat = _db.Treats
+        .Include(treat => treat.Flavors)
+        .ThenInclude(join => join.Flavor)
+        .Include(treat => treat.User)
+        .FirstOrDefault(treat => treat.TreatId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.IsCurrentUser = userId != null ? userId == thisTreat.User.Id : false;
+      return View(thisTreat);
+    }
   }
 }

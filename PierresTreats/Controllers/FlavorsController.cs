@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using PierresTreats.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,9 +17,11 @@ namespace PierresTreats.Controllers
   public class FlavorsController : Controller
   {
     private readonly PierresTreatsContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public FlavorsController(PierresTreatsContext db)
+    public FlavorsController(UserManager<ApplicationUser> userManager, PierresTreatsContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
@@ -27,11 +32,31 @@ namespace PierresTreats.Controllers
     }
 
     [HttpPost]
-    public ActionResult Index(Flavor Flavor)
+    public async Task<ActionResult> Index(Flavor flavor, int TreatId)
     {
-      _db.Flavors.Add(Flavor);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      flavor.User = currentUser;
+      _db.Flavors.Add(flavor);
+      if (TreatId != 0)
+      {
+        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+      }
       _db.SaveChanges();
       return RedirectToAction("Index", "FlavorTreat");
+    }
+
+    [Authorize]
+    public ActionResult Details(int id)
+    {
+      var thisFlavor = _db.Flavors
+        .Include(flavor => flavor.Treats)
+        .ThenInclude(join => join.Treat)
+        .Include(flavor => flavor.User)
+        .FirstOrDefault(flavor => flavor.FlavorId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.IsCurrentUser = userId != null ? userId == thisFlavor.User.Id : false;
+      return View(thisFlavor);
     }
   }
 }

@@ -13,7 +13,7 @@
 } 
 @foreach (var flavor in Model.FlavorList)
 {
-  <p>@Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId })</p>
+  <p>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</p>
 }
 <a href='@Url.Action("Index", "Flavors")'><h4>Create a New Flavor</h4></a>
 <hr>
@@ -25,7 +25,7 @@
 } 
 @foreach (var treat in Model.TreatList)
 {
-  <p>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</p>
+  <p>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</p>
 }
 <a href='@Url.Action("Index", "Treats")'><h4>Create a New Treat</h4></a>
 <hr>
