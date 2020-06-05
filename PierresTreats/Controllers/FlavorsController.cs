@@ -58,5 +58,20 @@ namespace PierresTreats.Controllers
       ViewBag.IsCurrentUser = userId != null ? userId == thisFlavor.User.Id : false;
       return View(thisFlavor);
     }
+
+    public ActionResult Delete(int id)
+    {
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavors => flavors.FlavorId == id);
+      return View(thisFlavor);
+    }      
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavors => flavors.FlavorId == id);
+      _db.Flavors.Remove(thisFlavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index", "FlavorTreat");
+    }
   }
 }
