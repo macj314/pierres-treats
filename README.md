@@ -6,7 +6,7 @@
 
 ## Description
 
-_This is a project that allows users to add and track stylists in a database. The user should be able to view all stylists, and their clients._
+_This is a project that allows users to add and track flavors and treats in a database. The user should be able to register and login to the site. They can then add, view, edit, and delete all of their flavors and treats._
 
 ## Setup/Installation Requirements
 
@@ -15,6 +15,42 @@ _This is a project that allows users to add and track stylists in a database. Th
   (VSCode, Atom, etc.)
 3. To install the REPL dotnet script, run dotnet tool install -g dotnet-script in your terminal.
 4. Run the program with the commands dotnet restore, dotnet build, and dotnet run.
+
+### Create Database 
+#### SQL Queries:
+``` CREATE SCHEMA `jason_macie` ;
+USE `jason_macie`;
+CREATE TABLE `flavors` (
+  `FlavorId` int NOT NULL AUTO_INCREMENT,
+  `Name` longtext,
+  `UserId` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`FlavorId`),
+  KEY `IX_Flavors_UserId` (`UserId`),
+  CONSTRAINT `FK_Flavors_AspNetUsers_UserId` FOREIGN KEY (`UserId`) REFERENCES `aspnetusers` (`Id`) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `flavortreat` (
+  `FlavorTreatId` int NOT NULL AUTO_INCREMENT,
+  `TreatId` int NOT NULL,
+  `FlavorId` int NOT NULL,
+  PRIMARY KEY (`FlavorTreatId`),
+  KEY `IX_FlavorTreat_FlavorId` (`FlavorId`),
+  KEY `IX_FlavorTreat_TreatId` (`TreatId`),
+  CONSTRAINT `FK_FlavorTreat_Flavors_FlavorId` FOREIGN KEY (`FlavorId`) REFERENCES `flavors` (`FlavorId`) ON DELETE CASCADE,
+  CONSTRAINT `FK_FlavorTreat_Treats_TreatId` FOREIGN KEY (`TreatId`) REFERENCES `treats` (`TreatId`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `treats` (
+  `TreatId` int NOT NULL AUTO_INCREMENT,
+  `Name` longtext,
+  `Ingredients` longtext,
+  `Description` longtext,
+  `UserId` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`TreatId`),
+  KEY `IX_Treats_UserId` (`UserId`),
+  CONSTRAINT `FK_Treats_AspNetUsers_UserId` FOREIGN KEY (`UserId`) REFERENCES `aspnetusers` (`Id`) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; ```
+
+#### Use SQL File
+Or import jason_macie.sql in the root directory of this program.
 
 ## Known Bugs
 
@@ -38,14 +74,7 @@ There are no known bugs at the time of this update.
 | :------------- | :------------- | :------------- |
 | **Users are presented with a homepage to navigate to a login page as well as a page that displays a list of treats, and flavors.** | User Input:"Enter site" | Output: "Pierre's Sweet and Savory Treats!" |
 | **Users can register an account and login.** | User Input: Name:"Jeremy" Email: test@testmail.com Password: **** | Output: "Logged in as Jeremy" |
-| **Users can create flavors and view their details. They can also edit/delete any flavors they've created while logged in.** | User Input: Create flavor Sweet | Output: Flavor Name: Sweet Edit? Delete? Details
-| **Users can create flavors and view their details. They can also edit/delete any flavors they've created while logged in.** | User Input: Create flavor Sweet | Output: Flavor Name: Sweet Edit? Delete? Details
-
-### Features to Add
-
-* Search functionality for both the list of clients and stylists.
-* Adding appointments to both clients and stylists.
-* Add more properties for clients.
+| **Users can create flavors/treats and view their details. They can also edit/delete any flavors they've created while logged in.** | User Input: Create flavor Sweet | Output: Flavor Name: Sweet Edit? Delete? Details
 
 ### License
 
