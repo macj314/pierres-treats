@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PierresTreats.ViewModels;
+@model PierresTreats.ViewModels.FlavorTreatViewModel
+<h2>List of Flavors and Treats</h2>
+<h4>Flavors:</h4>
+<hr>
+@if (@Model.FlavorList.Count == 0)
+{
+  <h3>No flavors have been added yet!</h3>
+} 
+@foreach (var flavor in Model.FlavorList)
+{
+  <p>@Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId })</p>
+}
+<hr>
+<h4>Treats:</h4>
+<hr>
+@if (@Model.TreatList.Count == 0)
+{
+  <h3>No treats have been added yet!</h3>
+} 
+@foreach (var treat in Model.TreatList)
+{
+  <p>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</p>
+}
