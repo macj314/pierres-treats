@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PierrsTreats.Migrations
+namespace PierresTreats.Migrations
 {
     public partial class Initial : Migration
     {
