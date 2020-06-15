@@ -87,7 +87,7 @@ namespace PierresTreats.Controllers
       }
       _db.Entry(flavor).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Details");
+      return RedirectToAction("Details", new{id = flavor.FlavorId});
     }
 
     public ActionResult AddTreat(int id)
